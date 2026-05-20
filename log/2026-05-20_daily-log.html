@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Daily Log — 2026.05.20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: #FFFFFF;
+  color: #1C1C1C;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== PAGE FRAME ===== */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+
+/* ===== TOP META ===== */
+.top-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8A8A8A;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* ===== TITLES ===== */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+
+/* ===== SECTION DIVIDER ===== */
+.section-divider {
+  margin: 60px 0;
+  height: 1px;
+  background: #E0E0E0;
+}
+
+/* ===== SECTION HEADERS ===== */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #1C1C1C;
+  letter-spacing: -0.3px;
+}
+
+h2 .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: #8A8A8A;
+  margin-right: 12px;
+  vertical-align: top;
+}
+
+h3 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: #1C1C1C;
+  letter-spacing: 0.3px;
+}
+
+/* ===== BODY TEXT ===== */
+p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+p.lead {
+  font-size: 18px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+/* ===== PULL QUOTE ===== */
+.pull-quote {
+  margin: 40px 0;
+  padding: 24px 0 24px 32px;
+  border-left: 2px solid #1C1C1C;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ===== TECH BLOCK ===== */
+.tech-block {
+  margin: 28px 0;
+  padding: 24px 28px;
+  background: #FAFAFA;
+  border-left: 2px solid #D0CFCA;
+}
+
+.tech-block h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #8A8A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+.tech-block p,
+.tech-block li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.tech-block ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.tech-block li {
+  padding-left: 16px;
+  position: relative;
+}
+
+.tech-block li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #999;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  margin: 32px 0;
+}
+
+.timeline-entry {
+  display: flex;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.timeline-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #8A8A8A;
+  width: 120px;
+  flex-shrink: 0;
+  padding-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-left: 24px;
+  border-left: 1px solid #E0E0E0;
+}
+
+.timeline-content h4 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1C1C1C;
+  margin-bottom: 6px;
+}
+
+.timeline-content p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+.timeline-content .tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  background: #F0F0F0;
+  color: #666;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+}
+
+/* ===== FOOTER ===== */
+.footer-note {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid #E0E0E0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #AAA;
+  letter-spacing: 0.5px;
+}
+
+.footer-note .mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm 18mm 22mm 18mm;
+  }
+  body { background: #FFF; }
+  .page {
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
+  }
+  .top-meta { margin-bottom: 32px; }
+  h1 { font-size: 38px; margin-bottom: 6px; }
+  .subtitle { font-size: 17px; margin-bottom: 32px; }
+  .section-divider { margin: 28px 0; }
+  h2 { font-size: 22px; margin-top: 0; margin-bottom: 6px; }
+  h3 { margin: 18px 0 8px; }
+  p { font-size: 13.5px; line-height: 1.65; margin-bottom: 10px; orphans: 3; widows: 3; }
+  p.lead { font-size: 15px; margin-bottom: 18px; }
+  .pull-quote { margin: 22px 0; padding: 16px 0 16px 24px; font-size: 15px; break-inside: avoid; }
+  .tech-block { margin: 16px 0; padding: 14px 18px; break-inside: avoid; }
+  .tech-block p, .tech-block li { font-size: 11px; line-height: 1.7; }
+  .timeline-entry { margin-bottom: 18px; }
+  .timeline-time { font-size: 10px; width: 90px; }
+  .timeline-content { padding-left: 16px; }
+  .timeline-content h4 { font-size: 13px; }
+  .timeline-content p { font-size: 12px; }
+  .footer-note { margin-top: 36px; padding-top: 14px; }
+
+  .tech-block,
+  .pull-quote,
+  .timeline-entry,
+  .section-divider {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h2, h3, h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .footer-note {
+    break-inside: avoid;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .page { padding: 48px 24px 80px; }
+  h1 { font-size: 36px; }
+  .subtitle { font-size: 18px; }
+  h2 { font-size: 22px; }
+  .pull-quote { font-size: 17px; padding-left: 20px; }
+  .timeline-entry { flex-direction: column; }
+  .timeline-time { width: auto; margin-bottom: 4px; }
+  .timeline-content { padding-left: 0; border-left: none; padding-top: 8px; border-top: 1px solid #E0E0E0; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top-meta">
+    <span>Hermes Daily Log</span>
+    <span>2026.05.20 · Session 20260520</span>
+  </div>
+
+  <h1>Connection / 連</h1>
+  <p class="subtitle">
+    When the thread breaks, you learn how the loom works.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">01</span>The Brief</h2>
+  <p class="lead">
+    19 日做完「Mon / 忙」視覺作品之後，20 日一早系統就出事了。Context compression 失敗、session 斷片、輔助模型集體 404——一場由 config 遺留引發的連鎖反應。
+  </p>
+  <p>
+    用戶沒有放棄，而是追問每一個錯誤訊息的底層原因。由「呢句係咩事」開始，逐層剝開 Hermes 的 session 機制、compression 原理、auxiliary model 架構，最終統一修復了全線配置。
+  </p>
+  <p>
+    今日的核心課題不是創作，而是「連貫」——當 AI 的記憶系統出現斷層時，如何理解並修復它。
+  </p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">02</span>The Timeline</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-entry">
+      <div class="timeline-time">06:01 HKT</div>
+      <div class="timeline-content">
+        <h4>Compression 404：第一聲警報</h4>
+        <p>
+          對話進行中，系統突然彈出錯誤：
+          <code>kimi-k2-turbo-preview</code> 404 Not Found。
+          這是 Hermes 內部「對話壓縮」機制在 summarizing 舊訊息時，call 了一個不存在（或帳號無權訪問）的 Moonshot 模型。
+        </p>
+        <span class="tag">ERROR</span>
+        <span class="tag">COMPRESSION</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">06:22 HKT</div>
+      <div class="timeline-content">
+        <h4>Session 分裂：被迫開新檔</h4>
+        <p>
+          Compression summary failed 導致 context 無法回收空間。
+          系統在臨界點自動（或用戶手動）開啟了新 session，舊對話的細節因此斷裂。
+          用戶事後描述：「因為 Compression summary failed 於是開左個新 Session。」
+        </p>
+        <span class="tag">SESSION-SPLIT</span>
+        <span class="tag">CONTEXT-LOSS</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">07:57 HKT</div>
+      <div class="timeline-content">
+        <h4>診斷：為何 auto 突然失效</h4>
+        <p>
+          檢查 <code>/opt/data/config.yaml</code> 發現
+          <code>auxiliary.compression</code> 設為
+          <code>provider: auto</code> + 空白 model。
+          Hermes 的 auto fallback chain 內建了一個 model lookup table，
+          當中引用了一個已下架／無效的模型名
+          <code>kimi-k2-turbo-preview</code>，於是報 404。
+        </p>
+        <span class="tag">DIAGNOSIS</span>
+        <span class="tag">CONFIG</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">10:30 HKT</div>
+      <div class="timeline-content">
+        <h4>局部修復：只改 compression</h4>
+        <p>
+          用 patch 工具將 <code>auxiliary.compression</code> 改為
+          <code>provider: moonshot / model: kimi-k2.6</code>，與主模型對齊。
+          但當時未察覺同樣問題潛伏在其他 auxiliary task 之中。
+        </p>
+        <span class="tag">PATCH</span>
+        <span class="tag">PARTIAL-FIX</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">16:37 HKT</div>
+      <div class="timeline-content">
+        <h4>壓力測試：「考考你」</h4>
+        <p>
+          用戶主動測試 AI 的連貫性：「如果唔做 session search，你既唯一線索係咩？」
+          答案是 persistent memory（MEMORY + USER PROFILE）——它們在每次對話開始時自動 inject 入 system prompt，
+          但容量有限（99% 已滿），且只保留長期偏好與框架，不保留短期對話細節。
+        </p>
+        <span class="tag">MEMORY-TEST</span>
+        <span class="tag">QA</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">16:38 HKT</div>
+      <div class="timeline-content">
+        <h4>第二聲警報：title_generation 404</h4>
+        <p>
+          對話中彈出 <code>⚠ Auxiliary title generation failed: HTTP 404</code>。
+          這次不是 compression，而是 title_generation 輔助服務報錯——
+          同一個 root cause 在不同功能上復發。
+        </p>
+        <span class="tag">ERROR</span>
+        <span class="tag">TITLE-GEN</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">16:43 HKT</div>
+      <div class="timeline-content">
+        <h4>全線修復：統一 10 個 auxiliary provider</h4>
+        <p>
+          Load <code>hermes-agent</code> skill 確認正確做法之後，
+          將 config 中所有 auxiliary task（vision、compression、session_search、web_extract、
+          skills_hub、approval、mcp、title_generation、triage_specifier、curator）
+          統一由 <code>provider: nvidia</code> 改為 <code>provider: kimi-coding</code>，
+          base_url 填上 <code>https://api.moonshot.ai/v1</code>，model 鎖定 <code>kimi-k2.6</code>。
+        </p>
+        <span class="tag">PATCH</span>
+        <span class="tag">FULL-FIX</span>
+        <span class="tag">SKILL-ASSISTED</span>
+      </div>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="timeline-time">16:51 HKT</div>
+      <div class="timeline-content">
+        <h4>補完上下文：session search 回填</h4>
+        <p>
+          用戶要求補返「之前 compression 失敗」的完整來龍去脈。
+          透過 <code>session_search</code> 找回 06:01 session 的摘要，
+          補充了 root cause（auto provider 的內建 lookup table 引用失效 model）、
+          當時的局部修復、以及今日統一修復的脈絡。
+        </p>
+        <span class="tag">CONTEXT-RECOVERY</span>
+        <span class="tag">SESSION-SEARCH</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">03</span>The Knowledge</h2>
+
+  <h3>3.1 什麼是 Context Compression？</h3>
+  <p>
+    LLM 每次對話都有 token 上限（context window）。當對話越來越長，接近上限時，
+    Hermes 會自動將舊訊息「壓縮」成一段摘要（summary），騰出空間給新對話。
+    這個 summarization 不是本地做，而是 call 一個「輔助模型」（auxiliary model）來幫手寫摘要。
+  </p>
+
+  <div class="tech-block">
+    <h4>技術細節</h4>
+    <p>Compression 流程：</p>
+    <ul>
+      <li>系統偵測 context 接近 threshold（預設 90%）</li>
+      <li>抽出舊訊息，交給 auxiliary.compression 指定的模型</li>
+      <li>模型回傳一段 summary，替換掉原有的一堆訊息</li>
+      <li>如果 compression 失敗，系統會 insert 一個 fallback marker，
+          但舊訊息仍佔用 token，只是「隱藏」了</li>
+    </ul>
+    <p>失敗的後果：summary 寫唔到 → 舊訊息冇被壓縮 → context 繼續膨脹 →
+       最終被迫開新 session 或截斷內容。</p>
+  </div>
+
+  <h3>3.2 Auxiliary Model 是什麼？</h3>
+  <p>
+    Hermes 將主模型（你傾緊嘅 model）和輔助模型分開。
+    輔助模型負責「幕後雜務」：寫摘要、生成標題、分析圖片、搜尋歷史對話、審批命令...
+    它們由 <code>config.yaml</code> 中 <code>auxiliary:</code> 區塊獨立配置。
+  </p>
+
+  <div class="tech-block">
+    <h4>技術細節</h4>
+    <p>Auxiliary task 清單（今日全部修復）：</p>
+    <ul>
+      <li><strong>compression</strong> — 對話壓縮 summarization</li>
+      <li><strong>vision</strong> — 圖片分析（非主模型的 vision call）</li>
+      <li><strong>session_search</strong> — 歷史對話搜尋與摘要</li>
+      <li><strong>web_extract</strong> — 網頁內容擷取</li>
+      <li><strong>skills_hub</strong> — 技能庫搜尋</li>
+      <li><strong>approval</strong> — 命令審批輔助判斷</li>
+      <li><strong>mcp</strong> — MCP 服務輔助</li>
+      <li><strong>title_generation</strong> — 自動生成 session 標題</li>
+      <li><strong>triage_specifier</strong> — 對話分類與路由</li>
+      <li><strong>curator</strong> — 技能生命週期整理</li>
+    </ul>
+    <p>關鍵原則：auxiliary 唔會自動繼承主模型設定。如果改咗主 provider，
+       auxiliary 仲係指向舊 provider，就會集體失效。</p>
+  </div>
+
+  <h3>3.3 Persistent Memory vs Session Search</h3>
+  <p>
+    今日用戶問了一個精準的問題：「唔做 session search，你既唯一線索係咩？」
+    答案是 persistent memory——分為兩塊：
+  </p>
+
+  <div class="tech-block">
+    <h4>技術細節</h4>
+    <p><strong>MEMORY（個人筆記）</strong></p>
+    <ul>
+      <li>容量上限：2,200 字符（而家 99% 滿）</li>
+      <li>內容：項目細節、工具怪癖、環境設定、教訓</li>
+      <li>壽命：長期，每次對話自動 inject</li>
+    </ul>
+    <p><strong>USER PROFILE（用戶檔案）</strong></p>
+    <ul>
+      <li>容量上限：1,375 字符（而家 97% 滿）</li>
+      <li>內容：偏好、性格、溝通風格、身份</li>
+      <li>壽命：長期，每次對話自動 inject</li>
+    </ul>
+    <p><strong>SESSION SEARCH（歷史搜尋）</strong></p>
+    <ul>
+      <li>內容：過去每一句對話的完整記錄</li>
+      <li>壽命：90 日（retention_days 設定）</li>
+      <li>使用時機：需要「尋日講過咩具體細節」時</li>
+    </ul>
+    <p>簡言之：Memory 記得「你係邊個」，Session search 記得「你尋日講過咩」。</p>
+  </div>
+
+  <h3>3.4 為何 auto provider 會突然失效？</h3>
+  <p>
+    Hermes 的 <code>provider: auto</code> 有一條內部 fallback chain 和 model lookup table。
+    當 auxiliary task 設為 auto 時，系統會根據這個 table 自動揀選模型。
+    問題是：這個 table 可能引用咗已下架、改名、或你帳號無權訪問的 model ID。
+  </p>
+
+  <div class="tech-block">
+    <h4>技術細節</h4>
+    <p>今次個案：</p>
+    <ul>
+      <li>用戶主模型：kimi-k2.6（Moonshot direct）</li>
+      <li>auxiliary.compression 設為 auto</li>
+      <li>auto 邏輯 resolve 到 <code>kimi-k2-turbo-preview</code></li>
+      <li>呢個 model name 不存在於用戶帳號 → 404</li>
+    </ul>
+    <p>原因推測：Moonshot 最近下架或改名了某個 model；
+       或者 Hermes 的內建 table 更新後引入了 stale reference；
+       又或者用戶轉 provider 後，auto 的優先次序變咗。</p>
+    <p>結論：用 Moonshot/Kimi 時，<strong>永遠明確指定 auxiliary provider</strong>，
+       唔好依賴 auto。</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">04</span>The Aftermath</h2>
+
+  <h3>4.1 Config 變更紀錄</h3>
+  <p>
+    今日修改了 <code>/opt/data/config.yaml</code> 中 auxiliary 區塊的 10 個 task。
+    統一由 nvidia / auto → kimi-coding + kimi-k2.6 + Moonshot base_url。
+  </p>
+
+  <div class="tech-block">
+    <h4>變更摘要</h4>
+    <ul>
+      <li>provider: nvidia → kimi-coding（10 處）</li>
+      <li>model: '' / auto → kimi-k2.6（10 處）</li>
+      <li>base_url: '' → https://api.moonshot.ai/v1（10 處）</li>
+      <li>api_key: 統一留空（繼承 .env 入面嘅 KIMI_API_KEY）</li>
+    </ul>
+    <p>唯一未改：fallback_providers 仲保留 nvidia 作為後備（用戶未決定移除與否）。</p>
+  </div>
+
+  <h3>4.2 未來優化方案</h3>
+
+  <div class="tech-block">
+    <h4>建議清單</h4>
+    <ul>
+      <li><strong>Restart Gateway</strong> — 改完 config 要打 /restart 或 hermes gateway restart 先會生效</li>
+      <li><strong>清理 Fallback Provider</strong> — 決定是否移除 fallback_providers 中嘅 nvidia（quota 已用完，留返可能冇意義）</li>
+      <li><strong>Memory 瘦身</strong> — MEMORY 99% 滿、USER PROFILE 97% 滿，建議 archive 過期內容或提高 char_limit</li>
+      <li><strong>定期 Config 審計</strong> — 每次轉 provider 後，統一檢查 auxiliary、fallback、delegation 等區塊是否同步</li>
+      <li><strong>設置 Context Warning</strong> — 用戶要求 90% context 時主動警告，今日已寫入 memory，下次應主動執行</li>
+      <li><strong>啟用 Checkpoint</strong> — config 中 checkpoints.enabled: false，開啟後可 /rollback 檔案變更</li>
+      <li><strong>Session 標題歸檔</strong> — 修復 title_generation 後，舊 session 會自動獲得標題，便於日後搜尋</li>
+    </ul>
+  </div>
+
+  <div class="pull-quote">
+    記憶唔係用嚟記住每一句說話，<br>
+    係用嚟記住「你係邊個」。<br>
+    至於尋日講過咩——<br>
+    搵返出嚟，就係連貫。
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">05</span>Reflection</h2>
+
+  <h3>5.1 關於系統的脆弱性</h3>
+  <p>
+    一個 provider 轉換，影響了 10 個隱藏服務。這是分散式系統的常見問題：
+    表面上一個設定，底層有無數依賴。用戶從 NVIDIA NIM 轉到 Moonshot direct 時，
+    只改了主模型，沒意識到 auxiliary 區塊仍然指向舊 provider。
+  </p>
+
+  <h3>5.2 關於「考考你」</h3>
+  <p>
+    用戶今日的主動測試（「考考你」）證明了一點：
+    最好的系統維護不是等東西壞了再修，而是主動驗證「如果 X 失效，Y 還能運作嗎？」
+    這種壓力測試思維，是零代碼用戶最強大的技術直覺。
+  </p>
+
+  <h3>5.3 關於未來</h3>
+  <p>
+    今日的經驗告訴我們，任何 provider 變更都應該跟隨一個「config 審計清單」：
+    主模型、fallback、auxiliary、delegation、MCP——逐項確認。
+    下次轉 provider 時，不再是「改一個地方」，而是「改一張清單」。
+  </p>
+
+  <div class="footer-note">
+    <span class="mono">Hermes Daily Log</span> · 2026.05.20 · K K · Session 20260520
+  </div>
+
+</div>
+
+</body>
+</html>
