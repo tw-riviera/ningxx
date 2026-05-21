@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微糖 | Micro Sugar</title>
+<style>
+  :root {
+    --bg: #0a0a08;
+    --text: #c9c5b8;
+    --muted: #8b7d6b;
+    --accent: #6b7d6b;
+    --gold: #a68a64;
+    --ice: rgba(220, 230, 240, 0.12);
+    --grid: rgba(139, 125, 107, 0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "SF Mono", "Menlo", "Consolas", "Noto Sans TC", monospace;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .poem-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 38vw;
+    height: 100vh;
+    padding: 10vh 4vw 8vh 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    background: linear-gradient(to right, transparent 0%, rgba(10,10,8,0.85) 25%);
+    pointer-events: none;
+  }
+
+  .title-block {
+    margin-bottom: 5vh;
+  }
+
+  .title {
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+    font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .title .vert {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.1em;
+    margin-left: 0.1em;
+    color: var(--gold);
+  }
+
+  .meta-header {
+    font-size: 0.55rem;
+    color: var(--muted);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+
+  .verses {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    max-width: 400px;
+  }
+
+  .stanza {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .line {
+    font-size: 0.82rem;
+    line-height: 2;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .line.en {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    padding-left: 1.4rem;
+    text-indent: -1.4rem;
+    margin-top: 0.1rem;
+  }
+
+  .gallery-label {
+    margin-top: auto;
+    padding-top: 4vh;
+    border-top: 1px solid rgba(139, 125, 107, 0.15);
+    font-size: 0.55rem;
+    line-height: 2.2;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+
+  .gallery-label .row {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .gallery-label .key {
+    color: var(--gold);
+    min-width: 6rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .poem-container {
+      width: 100vw;
+      background: linear-gradient(to top, rgba(10,10,8,0.9) 0%, transparent 35%);
+      justify-content: flex-end;
+      padding-bottom: 10vh;
+    }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sugar"></canvas>
+<div class="scanlines"></div>
+
+<main class="poem-container">
+  <div class="title-block">
+    <h1 class="title">微<span class="vert">糖</span></h1>
+    <div class="meta-header">Protocol: GRAVITY // USER_ID: K_K</div>
+  </div>
+
+  <div class="verses">
+    <div class="stanza">
+      <div class="line">加了微糖</div>
+      <div class="line">冰糖色素</div>
+      <div class="line">再加熱度</div>
+      <div class="line en">A touch of sugar / rock candy pigment / then heat</div>
+    </div>
+
+    <div class="stanza">
+      <div class="line">隨時間耀目</div>
+      <div class="line">背後的美感一直在搖彷</div>
+      <div class="line">像它總是凝視著你</div>
+      <div class="line en">Brightening with time / the beauty behind trembles / as if it always watches you</div>
+    </div>
+
+    <div class="stanza">
+      <div class="line">黑洞凝視著你</div>
+      <div class="line">扭曲</div>
+      <div class="line">重力</div>
+      <div class="line">失重</div>
+      <div class="line en">The black hole gazes back / distortion / gravity / weightlessness</div>
+    </div>
+
+    <div class="stanza">
+      <div class="line">光在哪裡了呢</div>
+      <div class="line">光速不變</div>
+      <div class="line">又怎呈現在 Canvas 上面</div>
+      <div class="line">你讓我看</div>
+      <div class="line en">Where is the light / the speed of light is constant / yet how does it appear on Canvas / let me see</div>
+    </div>
+  </div>
+
+  <div class="gallery-label">
+    <div class="row"><span class="key">Medium</span><span>HTML5 CANVAS / GRAVITATIONAL LENSING</span></div>
+    <div class="row"><span class="key">Dimension</span><span>VIEWPORT-RESPONSIVE</span></div>
+    <div class="row"><span class="key">Palette</span><span>EVENT-HORIZON / #0A0A08 BASE</span></div>
+    <div class="row"><span class="key">Date</span><span>2026-05-21 HKT</span></div>
+    <div class="row"><span class="key">Session</span><span>MICRO_SUGAR_v2.0</span></div>
+  </div>
+</main>
+
+<script>
+  const canvas = document.getElementById('sugar');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let mouse = { x: -1000, y: -1000 };
+  let time = 0;
+
+  // ── Black Hole / Sugar Crystal ──
+  class Singularity {
+    constructor() {
+      this.x = width * 0.32;
+      this.y = height * 0.5;
+      this.mass = 0.3; // grows over time (heat)
+      this.maxMass = 3.5;
+      this.heat = 0; // 0 = cold ice, 1 = hot accretion
+      this.rotation = 0;
+      this.photonRing = [];
+    }
+
+    update(dt) {
+      // Mass increases slowly (heat building up)
+      if (this.mass < this.maxMass) {
+        this.mass += 0.00008 * dt;
+      }
+      // Heat follows mass with lag
+      this.heat += (this.mass / this.maxMass - this.heat) * 0.001 * dt;
+      this.rotation += 0.0002 * dt;
+
+      // Mouse attraction (gaze)
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 300 && dist > 10) {
+        this.x += (dx / dist) * 0.3;
+        this.y += (dy / dist) * 0.3;
+      }
+    }
+
+    get eventHorizon() {
+      return 12 + this.mass * 18;
+    }
+
+    get schwarzschild() {
+      return this.eventHorizon * 2.5;
+    }
+
+    draw() {
+      const eh = this.eventHorizon;
+
+      // Accretion disk (heat glow)
+      if (this.heat > 0.05) {
+        const diskGradient = ctx.createRadialGradient(this.x, this.y, eh, this.x, this.y, eh * 4);
+        const hue = 200 - this.heat * 180; // blue -> red
+        const sat = 40 + this.heat * 50;
+        const light = 60 + this.heat * 30;
+        diskGradient.addColorStop(0, `hsla(${hue}, ${sat}%, ${light}%, ${this.heat * 0.4})`);
+        diskGradient.addColorStop(0.5, `hsla(${hue}, ${sat*0.6}%, ${light*0.8}%, ${this.heat * 0.15})`);
+        diskGradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = diskGradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, eh * 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Photon ring (bright ring just outside EH)
+      const ringGradient = ctx.createRadialGradient(this.x, this.y, eh * 0.9, this.x, this.y, eh * 1.6);
+      ringGradient.addColorStop(0, 'transparent');
+      ringGradient.addColorStop(0.5, `rgba(255, 250, 230, ${0.1 + this.heat * 0.3})`);
+      ringGradient.addColorStop(1, 'transparent');
+      ctx.fillStyle = ringGradient;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, eh * 1.6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Event horizon (pure black)
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, eh, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Crystal facets (when not fully heated)
+      if (this.heat < 0.7) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        const crystalAlpha = (1 - this.heat) * 0.15;
+        for (let i = 0; i < 6; i++) {
+          const a1 = (i / 6) * Math.PI * 2;
+          const a2 = ((i + 1) / 6) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(Math.cos(a1) * eh * 1.2, Math.sin(a1) * eh * 1.2);
+          ctx.lineTo(Math.cos(a2) * eh * 1.2, Math.sin(a2) * eh * 1.2);
+          ctx.closePath();
+          ctx.fillStyle = `rgba(200, 220, 235, ${crystalAlpha})`;
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+  }
+
+  // ── Stars with gravitational lensing ──
+  class Star {
+    constructor() {
+      this.reset();
+      // True position (undistorted)
+      this.trueX = this.x;
+      this.trueY = this.y;
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 1.2 + 0.3;
+      this.baseAlpha = Math.random() * 0.4 + 0.2;
+      this.twinklePhase = Math.random() * Math.PI * 2;
+      this.colorTemp = Math.random() > 0.8 ? 'warm' : 'cool';
+    }
+
+    update(dt, singularity) {
+      this.twinklePhase += 0.002 * dt;
+
+      // Background trembling (搖彷)
+      const trembleX = Math.sin(this.twinklePhase * 0.7) * 0.3;
+      const trembleY = Math.cos(this.twinklePhase * 0.5) * 0.3;
+
+      // Gravitational lensing
+      const dx = this.x - singularity.x;
+      const dy = this.y - singularity.y;
+      const r = Math.sqrt(dx*dx + dy*dy);
+      const minR = singularity.eventHorizon * 1.05;
+      const safeR = Math.max(r, minR);
+
+      // Einstein deflection: offset proportional to mass / r
+      const deflection = singularity.mass * 80 / safeR;
+
+      // Visual position = true position + offset away from singularity
+      this.visualX = this.x + (dx / safeR) * deflection + trembleX;
+      this.visualY = this.y + (dy / safeR) * deflection + trembleY;
+
+      // Brightness boost near Einstein ring
+      const ringDist = Math.abs(r - singularity.schwarzschild);
+      this.brightness = this.baseAlpha * (1 + Math.max(0, (1 - ringDist / 100) * 2));
+
+      // Stars inside event horizon are redshifted/dimmed
+      if (r < singularity.eventHorizon * 1.5) {
+        this.brightness *= 0.3;
+      }
+    }
+
+    draw() {
+      const flicker = 0.8 + Math.sin(this.twinklePhase) * 0.2;
+      const alpha = Math.min(1, this.brightness * flicker);
+
+      if (this.colorTemp === 'warm') {
+        ctx.fillStyle = `rgba(255, 240, 220, ${alpha})`;
+      } else {
+        ctx.fillStyle = `rgba(220, 230, 245, ${alpha})`;
+      }
+
+      ctx.beginPath();
+      ctx.arc(this.visualX, this.visualY, this.size * (1 + this.brightness * 0.3), 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── Photons (light speed constant) ──
+  class Photon {
+    constructor(singularity) {
+      this.reset(singularity);
+    }
+
+    reset(singularity) {
+      // Start from edge of screen
+      const side = Math.floor(Math.random() * 4);
+      const speed = 2.5; // Constant speed of light
+      switch(side) {
+        case 0: this.x = Math.random() * width; this.y = -10; this.vx = (Math.random() - 0.5) * speed; this.vy = speed * 0.8; break;
+        case 1: this.x = width + 10; this.y = Math.random() * height; this.vx = -speed * 0.8; this.vy = (Math.random() - 0.5) * speed; break;
+        case 2: this.x = Math.random() * width; this.y = height + 10; this.vx = (Math.random() - 0.5) * speed; this.vy = -speed * 0.8; break;
+        case 3: this.x = -10; this.y = Math.random() * height; this.vx = speed * 0.8; this.vy = (Math.random() - 0.5) * speed; break;
+      }
+      this.speed = speed;
+      this.active = true;
+      this.trail = [];
+      this.maxTrail = 40;
+      this.hue = 180 + Math.random() * 60;
+    }
+
+    update(dt, singularity) {
+      if (!this.active) return;
+
+      // Store trail
+      this.trail.push({x: this.x, y: this.y});
+      if (this.trail.length > this.maxTrail) this.trail.shift();
+
+      // Gravity affects direction, not speed (light speed constant)
+      const dx = singularity.x - this.x;
+      const dy = singularity.y - this.y;
+      const r = Math.sqrt(dx*dx + dy*dy);
+
+      if (r < singularity.eventHorizon) {
+        this.active = false; // Falls into singularity
+        return;
+      }
+
+      // Gravitational acceleration (changes direction only)
+      const G = singularity.mass * 0.8;
+      const ax = (dx / r) * G / (r * 0.5 + 10);
+      const ay = (dy / r) * G / (r * 0.5 + 10);
+
+      this.vx += ax;
+      this.vy += ay;
+
+      // Normalize to constant speed (speed of light invariant)
+      const currentSpeed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+      if (currentSpeed > 0) {
+        this.vx = (this.vx / currentSpeed) * this.speed;
+        this.vy = (this.vy / currentSpeed) * this.speed;
+      }
+
+      this.x += this.vx * (dt / 16);
+      this.y += this.vy * (dt / 16);
+
+      // Reset if off screen too far
+      if (this.x < -100 || this.x > width + 100 || this.y < -100 || this.y > height + 100) {
+        this.reset(singularity);
+      }
+    }
+
+    draw() {
+      if (!this.active || this.trail.length < 2) return;
+
+      ctx.beginPath();
+      ctx.moveTo(this.trail[0].x, this.trail[0].y);
+      for (let i = 1; i < this.trail.length; i++) {
+        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+      }
+
+      const gradient = ctx.createLinearGradient(
+        this.trail[0].x, this.trail[0].y,
+        this.trail[this.trail.length - 1].x, this.trail[this.trail.length - 1].y
+      );
+      gradient.addColorStop(0, `hsla(${this.hue}, 70%, 70%, 0)`);
+      gradient.addColorStop(1, `hsla(${this.hue}, 70%, 80%, 0.6)`);
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Head glow
+      ctx.fillStyle = `hsla(${this.hue}, 80%, 90%, 0.8)`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── Background dust (微糖 particles) ──
+  class Dust {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 0.8 + 0.2;
+      this.phase = Math.random() * Math.PI * 2;
+      this.driftX = (Math.random() - 0.5) * 0.1;
+      this.driftY = (Math.random() - 0.5) * 0.1;
+    }
+
+    update(dt) {
+      this.phase += 0.001 * dt;
+      this.x += this.driftX * dt;
+      this.y += this.driftY * dt;
+
+      if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+        this.reset();
+      }
+    }
+
+    draw() {
+      const alpha = 0.04 + Math.sin(this.phase) * 0.02;
+      ctx.fillStyle = `rgba(200, 210, 220, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── Main ──
+  let singularity;
+  let stars = [];
+  let photons = [];
+  let dust = [];
+
+  function init() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+    singularity = new Singularity();
+
+    stars = [];
+    const starCount = Math.min(800, Math.floor((width * height) / 1500));
+    for (let i = 0; i < starCount; i++) {
+      stars.push(new Star());
+    }
+
+    photons = [];
+    for (let i = 0; i < 30; i++) {
+      photons.push(new Photon(singularity));
+    }
+
+    dust = [];
+    for (let i = 0; i < 60; i++) {
+      dust.push(new Dust());
+    }
+  }
+
+  function animate(timestamp) {
+    const dt = Math.min(timestamp - time, 50);
+    time = timestamp;
+
+    // Fade with trail
+    ctx.fillStyle = 'rgba(10, 10, 8, 0.25)';
+    ctx.fillRect(0, 0, width, height);
+
+    // Update singularity
+    singularity.update(dt);
+
+    // Draw dust (微糖)
+    dust.forEach(d => {
+      d.update(dt);
+      d.draw();
+    });
+
+    // Draw stars with gravitational lensing
+    stars.forEach(s => {
+      s.update(dt, singularity);
+      s.draw();
+    });
+
+    // Draw photon trails (光速不變)
+    photons.forEach(p => {
+      p.update(dt, singularity);
+      p.draw();
+    });
+
+    // Draw singularity
+    singularity.draw();
+
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', init);
+
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  window.addEventListener('click', e => {
+    // Click adds heat burst
+    singularity.mass = Math.min(singularity.maxMass, singularity.mass + 0.3);
+  });
+
+  init();
+  time = performance.now();
+  requestAnimationFrame(animate);
+</script>
+
+</body>
+</html>
