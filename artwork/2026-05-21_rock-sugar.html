@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冰糖 | Rock Sugar</title>
+<style>
+  :root {
+    --bg: #0a0a08;
+    --text: #c9c5b8;
+    --muted: #8b7d6b;
+    --ice: rgba(220, 230, 240, 0.15);
+    --ice-glow: rgba(200, 220, 235, 0.4);
+    --gold: #a68a64;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "SF Mono", "Menlo", "Consolas", "Noto Sans TC", monospace;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,0.06) 2px,
+      rgba(0,0,0,0.06) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .poem-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40vw;
+    height: 100vh;
+    padding: 10vh 4vw 8vh 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    background: linear-gradient(to right, transparent 0%, var(--bg) 20%);
+    pointer-events: none;
+  }
+
+  .title-block {
+    margin-bottom: 6vh;
+  }
+
+  .title {
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .title .vert {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.1em;
+    margin-left: 0.1em;
+    color: var(--gold);
+  }
+
+  .meta-header {
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+
+  .verses {
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+    max-width: 420px;
+  }
+
+  .stanza {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .line {
+    font-size: 0.88rem;
+    line-height: 2;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .line.en {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    padding-left: 1.4rem;
+    text-indent: -1.4rem;
+    margin-top: 0.1rem;
+  }
+
+  .gallery-label {
+    margin-top: auto;
+    padding-top: 5vh;
+    border-top: 1px solid rgba(139, 125, 107, 0.2);
+    font-size: 0.58rem;
+    line-height: 2.2;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+
+  .gallery-label .row {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .gallery-label .key {
+    color: var(--gold);
+    min-width: 6rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .poem-container {
+      width: 100vw;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 40%);
+      justify-content: flex-end;
+      padding-bottom: 12vh;
+    }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sugar"></canvas>
+<div class="scanlines"></div>
+
+<main class="poem-container">
+  <div class="title-block">
+    <h1 class="title">冰<span class="vert">糖</span></h1>
+    <div class="meta-header">Protocol: PLEASURE // USER_ID: K_K</div>
+  </div>
+
+  <div class="verses">
+    <div class="stanza">
+      <div class="line">它不甜</div>
+      <div class="line">只是讓你以為</div>
+      <div class="line">甜過</div>
+      <div class="line en">It is not sweet / it only lets you believe / you have been</div>
+    </div>
+
+    <div class="stanza">
+      <div class="line">你靠近</div>
+      <div class="line">它就發亮</div>
+      <div class="line">你離開</div>
+      <div class="line">它假裝從未融化</div>
+      <div class="line en">You approach / it brightens / you leave / it pretends it never melted</div>
+    </div>
+
+    <div class="stanza">
+      <div class="line">一粒冰糖的時間</div>
+      <div class="line">剛好夠記住</div>
+      <div class="line">一個人</div>
+      <div class="line en">The lifespan of one rock sugar / is just enough / to remember one person</div>
+    </div>
+  </div>
+
+  <div class="gallery-label">
+    <div class="row"><span class="key">Medium</span><span>HTML5 CANVAS / WEB AUDIO</span></div>
+    <div class="row"><span class="key">Dimension</span><span>VIEWPORT-RESPONSIVE</span></div>
+    <div class="row"><span class="key">Palette</span><span>ICE-TONE / #0A0A08 BASE</span></div>
+    <div class="row"><span class="key">Date</span><span>2026-05-21 HKT</span></div>
+    <div class="row"><span class="key">Session</span><span>ROCK_SUGAR_v1.0</span></div>
+  </div>
+</main>
+
+<script>
+  const canvas = document.getElementById('sugar');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let mouse = { x: -1000, y: -1000, active: false };
+  let time = 0;
+
+  // ── Audio ──
+  let audioCtx, drone, gainNode;
+  let audioStarted = false;
+
+  function initAudio() {
+    if (audioStarted) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Create a soft drone using two oscillators
+    drone = audioCtx.createOscillator();
+    const drone2 = audioCtx.createOscillator();
+    gainNode = audioCtx.createGain();
+    
+    drone.type = 'sine';
+    drone.frequency.value = 220; // A3
+    drone2.type = 'sine';
+    drone2.frequency.value = 222; // slight detune for beating
+    
+    gainNode.gain.value = 0;
+    
+    drone.connect(gainNode);
+    drone2.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    drone.start();
+    drone2.start();
+    
+    // Fade in very slowly
+    gainNode.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 3);
+    
+    audioStarted = true;
+  }
+
+  function updateAudio(glowIntensity) {
+    if (!audioStarted || !gainNode) return;
+    // Subtle pitch shift based on glow
+    const targetGain = 0.02 + glowIntensity * 0.04;
+    gainNode.gain.setTargetAtTime(targetGain, audioCtx.currentTime, 0.5);
+  }
+
+  // ── Crystal geometry ──
+  class Crystal {
+    constructor() {
+      this.x = width * 0.3;
+      this.y = height * 0.5;
+      this.baseSize = Math.min(width, height) * 0.18;
+      this.size = this.baseSize;
+      this.rotation = 0;
+      this.rotationSpeed = 0.0003;
+      this.faces = [];
+      this.glow = 0;
+      this.melt = 0; // 0 = solid, 1 = fully melted
+      this.buildFaces();
+    }
+
+    buildFaces() {
+      // Build an irregular crystal with 6-8 faces
+      const faceCount = 7;
+      this.faces = [];
+      for (let i = 0; i < faceCount; i++) {
+        const angle = (i / faceCount) * Math.PI * 2;
+        const radiusVar = 0.7 + Math.random() * 0.6;
+        const innerVar = 0.3 + Math.random() * 0.4;
+        this.faces.push({
+          outerAngle: angle,
+          outerRadius: radiusVar,
+          innerAngle: angle + Math.PI / faceCount,
+          innerRadius: innerVar,
+          opacity: 0.1 + Math.random() * 0.15,
+          hue: 200 + Math.random() * 40, // blue-cyan range
+        });
+      }
+    }
+
+    update(dt) {
+      this.rotation += this.rotationSpeed * dt;
+      
+      // Very slow melt over time
+      this.melt = Math.min(1, this.melt + 0.00001 * dt);
+      
+      // Mouse interaction
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = Math.min(width, height) * 0.4;
+      
+      let targetGlow = 0;
+      let targetSize = this.baseSize;
+      
+      if (dist < maxDist) {
+        const proximity = 1 - dist / maxDist;
+        targetGlow = proximity * 0.8;
+        targetSize = this.baseSize * (1 + proximity * 0.15);
+        
+        // Slow down rotation when approached
+        this.rotationSpeed = 0.0003 * (1 - proximity * 0.5);
+      } else {
+        this.rotationSpeed += (0.0003 - this.rotationSpeed) * 0.001;
+      }
+      
+      this.glow += (targetGlow - this.glow) * 0.02;
+      this.size += (targetSize - this.size) * 0.02;
+      
+      updateAudio(this.glow);
+    }
+
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation);
+      
+      // Apply melt: size shrinks, edges round
+      const meltFactor = 1 - this.melt * 0.3;
+      const currentSize = this.size * meltFactor;
+      
+      // Draw glow
+      if (this.glow > 0.01) {
+        const glowRadius = currentSize * (1.5 + this.glow);
+        const gradient = ctx.createRadialGradient(0, 0, currentSize * 0.3, 0, 0, glowRadius);
+        gradient.addColorStop(0, `rgba(200, 220, 235, ${this.glow * 0.3})`);
+        gradient.addColorStop(0.5, `rgba(180, 200, 220, ${this.glow * 0.1})`);
+        gradient.addColorStop(1, 'rgba(180, 200, 220, 0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(0, 0, glowRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      
+      // Draw crystal faces
+      this.faces.forEach((face, i) => {
+        const nextFace = this.faces[(i + 1) % this.faces.length];
+        
+        const x1 = Math.cos(face.outerAngle) * currentSize * face.outerRadius;
+        const y1 = Math.sin(face.outerAngle) * currentSize * face.outerRadius;
+        const x2 = Math.cos(nextFace.outerAngle) * currentSize * nextFace.outerRadius;
+        const y2 = Math.sin(nextFace.outerAngle) * currentSize * nextFace.outerRadius;
+        const x3 = Math.cos(face.innerAngle) * currentSize * 0.3;
+        const y3 = Math.sin(face.innerAngle) * currentSize * 0.3;
+        
+        ctx.beginPath();
+        ctx.moveTo(x3, y3);
+        ctx.lineTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        
+        // Face color with glow influence
+        const alpha = face.opacity + this.glow * 0.3;
+        const lightness = 85 + this.glow * 15;
+        ctx.fillStyle = `hsla(${face.hue}, 30%, ${lightness}%, ${alpha})`;
+        ctx.fill();
+        
+        // Edge
+        ctx.strokeStyle = `hsla(${face.hue}, 40%, 90%, ${0.1 + this.glow * 0.3})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      });
+      
+      // Inner light core
+      const coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, currentSize * 0.4);
+      coreGradient.addColorStop(0, `rgba(255, 255, 255, ${0.05 + this.glow * 0.2})`);
+      coreGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = coreGradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, currentSize * 0.4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.restore();
+    }
+  }
+
+  // ── Floating particles (dust/motes) ──
+  class Mote {
+    constructor() {
+      this.reset();
+    }
+    
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 1.5 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.15;
+      this.speedY = (Math.random() - 0.5) * 0.15;
+      this.alpha = Math.random() * 0.15 + 0.05;
+      this.phase = Math.random() * Math.PI * 2;
+    }
+    
+    update(dt) {
+      this.x += this.speedX * dt;
+      this.y += this.speedY * dt;
+      this.phase += 0.001 * dt;
+      
+      if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+        this.reset();
+      }
+    }
+    
+    draw() {
+      const flicker = 0.7 + Math.sin(this.phase) * 0.3;
+      ctx.fillStyle = `rgba(200, 210, 220, ${this.alpha * flicker})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── Melting drops ──
+  class Drop {
+    constructor(crystal) {
+      this.crystal = crystal;
+      this.reset();
+    }
+    
+    reset() {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = this.crystal.size * (0.5 + Math.random() * 0.5);
+      this.x = this.crystal.x + Math.cos(angle) * dist;
+      this.y = this.crystal.y + Math.sin(angle) * dist;
+      this.size = Math.random() * 2 + 1;
+      this.speedY = 0;
+      this.active = false;
+      this.waitTime = Math.random() * 5000;
+    }
+    
+    update(dt) {
+      if (!this.active) {
+        this.waitTime -= dt;
+        if (this.waitTime <= 0 && this.crystal.melt > 0.1) {
+          this.active = true;
+        }
+        return;
+      }
+      
+      this.speedY += 0.001 * dt;
+      this.y += this.speedY * dt;
+      this.size *= 0.999;
+      
+      if (this.y > height + 10 || this.size < 0.3) {
+        this.reset();
+      }
+    }
+    
+    draw() {
+      if (!this.active) return;
+      ctx.fillStyle = `rgba(200, 220, 235, ${this.size * 0.08})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── Main ──
+  let crystal;
+  let motes = [];
+  let drops = [];
+
+  function init() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    
+    crystal = new Crystal();
+    
+    motes = [];
+    const moteCount = Math.min(40, Math.floor((width * height) / 25000));
+    for (let i = 0; i < moteCount; i++) {
+      motes.push(new Mote());
+    }
+    
+    drops = [];
+    for (let i = 0; i < 5; i++) {
+      drops.push(new Drop(crystal));
+    }
+  }
+
+  function animate(timestamp) {
+    const dt = Math.min(timestamp - time, 50);
+    time = timestamp;
+    
+    // Clear with trail
+    ctx.fillStyle = 'rgba(10, 10, 8, 0.3)';
+    ctx.fillRect(0, 0, width, height);
+    
+    // Draw motes
+    motes.forEach(m => {
+      m.update(dt);
+      m.draw();
+    });
+    
+    // Draw drops
+    drops.forEach(d => {
+      d.update(dt);
+      d.draw();
+    });
+    
+    // Draw crystal
+    crystal.update(dt);
+    crystal.draw();
+    
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', init);
+  
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+    if (!audioStarted) initAudio();
+  });
+  
+  window.addEventListener('mouseleave', () => {
+    mouse.active = false;
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+  
+  window.addEventListener('click', () => {
+    if (!audioStarted) initAudio();
+  });
+
+  init();
+  time = performance.now();
+  requestAnimationFrame(animate);
+</script>
+
+</body>
+</html>
