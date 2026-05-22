@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Config 遷移指南 — Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: #FFFFFF;
+  color: #1C1C1C;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+.top-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8A8A8A;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 48px;
+  margin-bottom: 12px;
+  color: #1C1C1C;
+  letter-spacing: -0.3px;
+}
+h2 .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: #8A8A8A;
+  margin-right: 12px;
+  vertical-align: top;
+}
+h3 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: #1C1C1C;
+  letter-spacing: 0.3px;
+}
+p {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+}
+ul, ol {
+  margin: 16px 0 24px 24px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 300;
+  line-height: 1.75;
+}
+li {
+  margin-bottom: 8px;
+}
+li::marker {
+  color: #AAA;
+}
+pre {
+  background: #F7F7F7;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #2D2D2D;
+}
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  background: #F2F2F2;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #444;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 12px;
+}
+.section-divider {
+  margin: 48px 0;
+  height: 1px;
+  background: #E0E0E0;
+}
+.callout {
+  border-left: 3px solid #1C1C1C;
+  padding: 16px 20px;
+  margin: 24px 0;
+  background: #FAFAFA;
+}
+.callout p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+.callout-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #888;
+  margin-bottom: 8px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #EAEAEA;
+  font-weight: 300;
+}
+th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  border-bottom: 2px solid #1C1C1C;
+}
+tr:last-child td {
+  border-bottom: 2px solid #1C1C1C;
+}
+.back-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8A8A8A;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+.back-link:hover { color: #1C1C1C; }
+.footer-note {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid #E0E0E0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #AAA;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 640px) {
+  .page { padding: 48px 24px 80px; }
+  h1 { font-size: 32px; }
+  .subtitle { font-size: 17px; }
+  h2 { font-size: 22px; }
+  pre { padding: 12px 14px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top-meta">
+    <span><a href="../guide-table-of-content.html" class="back-link">← Guide</a></span>
+    <span>2026-05-22</span>
+  </div>
+
+  <h1>Hermes Config 遷移指南</h1>
+  <p class="subtitle">從舊版 config.yaml 到新結構：一次完整的對照與遷移手冊。</p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">01</span>為什麼需要遷移</h2>
+  <p>Hermes Agent 的設定檔結構在版本迭代中經歷了顯著變化。舊版 <code>config.yaml</code> 採用扁平化結構，將所有 auxiliary provider 直接列在根層級；新版則引入了 <code>providers</code> 區塊、明確的 <code>key_env</code> 對應、以及更細緻的 <code>auxiliary</code> 子模組配置。</p>
+  <p>遷移不是「可有可無」——舊結構在新版啟動時可能導致 auxiliary service 無法正確解析，或 fallback 機制失效。</p>
+
+  <div class="callout">
+    <div class="callout-title">核心差異</div>
+    <p>舊版：auxiliary 直接指定 provider 名稱，無獨立 provider 定義區塊。<br>
+    新版：先定義 provider（含 base_url、key_env、api_mode），再在 auxiliary 中引用 provider 名稱。</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">02</span>舊版結構（遷移前）</h2>
+  <p>以下為實際運行中的舊版 <code>config.yaml</code> 精簡範例：</p>
+  <pre><code>auxiliary:
+  vision:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  web_extract:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  compression:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  session_search:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  skills_hub:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  approval:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  mcp:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  title_generation:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  triage_specifier:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+  curator:
+    provider: kimi-coding
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+
+model:
+  default: kimi-k2.6
+  provider: kimi-coding
+  base_url: https://api.kimi.com/coding</code></pre>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">03</span>新版結構（遷移後）</h2>
+  <p>新版結構將 provider 定義抽離，並在 auxiliary 中改為引用已定義的 provider 名稱：</p>
+  <pre><code>model:
+  default: kimi-k2.6
+  provider: kimi-primary-coding
+  base_url: https://api.kimi.com/coding
+
+providers:
+  kimi-primary-coding:
+    base_url: https://api.kimi.com/coding
+    key_env: KIMI_CODING_API_KEY
+    api_mode: anthropic_messages
+    model: kimi-k2.6
+  kimi-moonshot:
+    base_url: https://api.moonshot.ai/v1
+    key_env: KIMI_API_KEY
+
+fallback_providers:
+  - provider: kimi-moonshot
+    model: kimi-k2.6
+
+auxiliary:
+  vision:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 120
+    extra_body: {}
+    download_timeout: 30
+  web_extract:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 360
+    extra_body: {}
+  compression:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 120
+    extra_body: {}
+  session_search:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 30
+    extra_body: {}
+    max_concurrency: 3
+  skills_hub:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 30
+    extra_body: {}
+  approval:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 30
+    extra_body: {}
+  mcp:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 30
+    extra_body: {}
+  title_generation:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 30
+    extra_body: {}
+  triage_specifier:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 120
+    extra_body: {}
+  curator:
+    provider: kimi-moonshot
+    model: kimi-k2.6
+    base_url: https://api.moonshot.ai/v1
+    api_key: ''
+    timeout: 600
+    extra_body: {}</code></pre>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">04</span>對照表：舊 → 新</h2>
+  <table>
+    <tr>
+      <th>項目</th>
+      <th>舊版</th>
+      <th>新版</th>
+    </tr>
+    <tr>
+      <td>主模型 provider</td>
+      <td><code>kimi-coding</code></td>
+      <td><code>kimi-primary-coding</code>（自定義名稱）</td>
+    </tr>
+    <tr>
+      <td>provider 定義</td>
+      <td>無獨立區塊</td>
+      <td><code>providers:</code> 區塊，含 <code>key_env</code>、<code>api_mode</code></td>
+    </tr>
+    <tr>
+      <td>auxiliary provider</td>
+      <td><code>kimi-coding</code></td>
+      <td><code>kimi-moonshot</code>（區分主模型與輔助服務）</td>
+    </tr>
+    <tr>
+      <td>fallback</td>
+      <td>隱含或未啟用</td>
+      <td>明確 <code>fallback_providers</code> 區塊</td>
+    </tr>
+    <tr>
+      <td>auxiliary 欄位</td>
+      <td>provider / model / base_url</td>
+      <td>新增 api_key、timeout、extra_body、max_concurrency 等</td>
+    </tr>
+    <tr>
+      <td>環境變數</td>
+      <td>隱式對應</td>
+      <td>顯式 <code>key_env</code> 指定</td>
+    </tr>
+  </table>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">05</span>遷移步驟</h2>
+  <ol>
+    <li><strong>備份現有 config</strong><br>
+    <code>cp /opt/data/config.yaml /opt/data/config.yaml.backup.$(date +%Y%m%d)</code></li>
+    <li><strong>確認環境變數</strong><br>
+    檢查 <code>.env</code> 中是否已有 <code>KIMI_CODING_API_KEY</code> 與 <code>KIMI_API_KEY</code>。</li>
+    <li><strong>建立新版 config</strong><br>
+    參考上方「新版結構」範本，依實際環境調整 provider 名稱與 base_url。</li>
+    <li><strong>驗證 auxiliary 服務</strong><br>
+    啟動 Hermes 後，觀察 vision / session_search / compression 是否正常運作。</li>
+    <li><strong>測試 fallback</strong><br>
+    暫時停用主 provider，確認系統能否自動切換至 fallback provider。</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">注意</div>
+    <p>新版 auxiliary 中每個子項都包含 <code>api_key: ''</code>——留空表示從 <code>key_env</code> 指定的環境變數讀取。若直接填入明文金鑰，將覆蓋環境變數設定。</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">06</span>常見問題</h2>
+  <h3>Q: 為什麼 auxiliary provider 要改用 kimi-moonshot？</h3>
+  <p>A: 主模型（kimi-primary-coding）與輔助服務（vision、compression 等）可以分屬不同 endpoint。將 auxiliary 指向 moonshot 可分散負載，也便於個別調整 timeout 與並發限制。</p>
+
+  <h3>Q: api_mode: anthropic_messages 是什麼意思？</h3>
+  <p>A: 指定該 provider 使用 Anthropic Messages API 格式進行通訊，而非 OpenAI-compatible 格式。Kimi Coding endpoint 目前採用此格式。</p>
+
+  <h3>Q: 遷移後舊檔案要保留嗎？</h3>
+  <p>A: 建議保留。系統目前仍可能讀取 <code>/opt/data/config.yaml</code> 作為輔助參考，但啟動時以新版結構為準。</p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">07</span>相關檔案路徑</h2>
+  <ul>
+    <li>舊版設定：<code>/opt/data/config.yaml</code></li>
+    <li>新版設定參考：<code>/opt/data/config_fixed.yaml</code></li>
+    <li>環境變數：<code>/opt/data/.env</code></li>
+    <li>部署腳本：<code>/opt/data/home/scripts/deploy-to-github.py</code></li>
+  </ul>
+
+  <div class="footer-note">
+    <span>Hermes VPS · Guide</span>
+    <span>2026-05-22</span>
+  </div>
+</div>
+</body>
+</html>
