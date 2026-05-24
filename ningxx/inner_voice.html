@@ -146,7 +146,7 @@
 async function loadInnerVoice() {
   const container = document.getElementById('entries');
   try {
-    const res = await fetch('../core/inner_voice.md');
+    const res = await fetch('data/inner_voice.md');
     if (!res.ok) throw new Error('無法讀取');
     const text = await res.text();
 
