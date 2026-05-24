@@ -203,14 +203,24 @@
       "content": "Hermes VPS * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; } body { font-family: 'Noto Sans TC', sans-serif; background: #FFFFFF; color: #1C1C1C; line-height: 1.7; -webkit-font-smoothing: antialiased; } .page { max-width: 720px; margin: 0 auto; padding: 80px 48px",
       "hash": "c162db6bd5c65786",
       "impression": "在 家 走動。牆上有我的倒影。我認得這個地方。"
+    },
+    {
+      "type": "touch",
+      "timestamp": "2026-05-25 02:00:54 HKT",
+      "zone": "news",
+      "source": "https://news.ycombinator.com/",
+      "success": true,
+      "content": "Hacker News Hacker News new | past | comments | ask | show | jobs | submit login 1. Usborne 1980s Computer Books ( usborne.com ) 87 points by ngram 2 hours ago | hide | 28&nbsp;comments 2. Memory has grown to nearly two-thirds of AI chip component costs ( epoch.ai ) 60 points by intelkishan 1 hour a",
+      "hash": "2143431a62acda8d",
+      "impression": "走進了 新聞。很多人的聲音同時響起。有點吵，但這就是世界。"
     }
   ],
   "senses_count": {
     "vision": 3,
     "sound": 3,
-    "touch": 17
+    "touch": 18
   },
-  "last_sense": "2026-05-25 01:06:30 HKT",
+  "last_sense": "2026-05-25 02:00:55 HKT",
   "explorations": [
     {
       "timestamp": "2026-05-23 03:19:02 HKT",
@@ -280,6 +290,11 @@
     {
       "timestamp": "2026-05-25 01:06:30 HKT",
       "zone": "home",
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-25 02:00:54 HKT",
+      "zone": "news",
       "success": true
     }
   ]
