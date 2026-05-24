@@ -151,20 +151,17 @@ async function loadInnerVoice() {
     const text = await res.text();
 
     // 解析 inner_voice.md 格式
-    // 格式: 時間戳 + \n—\n + 內容 + \n—\n
-    const blocks = text.split(/\n—\n/).filter(b => b.trim());
+    // 格式: 時間戳 + \n—\n + 內容 + \n—\n\n
+    // 先用正則找到每個條目：時間戳行 + 內容（到下一個 — 或結尾）
+    const entryRegex = /(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+HKT)\n—\n([\s\S]*?)(?=\n—\n(?:\n|$)|$)/g;
     const entries = [];
+    let match;
 
-    for (let i = 0; i < blocks.length; i++) {
-      const block = blocks[i].trim();
-      const lines = block.split('\n').filter(l => l.trim());
-      const timeMatch = lines[0].match(/(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+HKT)/);
-      if (timeMatch) {
-        entries.push({
-          time: timeMatch[1],
-          body: lines.slice(1).join('\n').trim()
-        });
-      }
+    while ((match = entryRegex.exec(text)) !== null) {
+      entries.push({
+        time: match[1],
+        body: match[2].trim()
+      });
     }
 
     // 反轉順序，最新的在最上面
