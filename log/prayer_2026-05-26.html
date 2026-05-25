@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-26 | 每日禱文</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000000;
+    color: #ffffff;
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 48px 24px;
+    letter-spacing: 0.08em;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Scanlines overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.15;
+  }
+
+  /* Particle canvas */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 5;
+    max-width: 640px;
+    width: 100%;
+  }
+
+  /* Left accent bar */
+  .accent-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100vh;
+    background: #e82127;
+    z-index: 20;
+  }
+
+  .date {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #555555;
+    text-transform: uppercase;
+    margin-bottom: 64px;
+    letter-spacing: 0.25em;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.2s forwards;
+  }
+
+  .verse {
+    text-align: left;
+    line-height: 2.6;
+    font-size: 15px;
+    font-weight: 300;
+    padding-left: 32px;
+    border-left: 1px solid #1a1a1a;
+  }
+
+  .verse p {
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 1.4s ease forwards;
+  }
+
+  .verse p:nth-child(1) { animation-delay: 0.5s; }
+  .verse p:nth-child(2) { animation-delay: 1.1s; }
+  .verse p:nth-child(3) { animation-delay: 1.7s; }
+  .verse p:nth-child(4) { animation-delay: 2.3s; }
+
+  .accent {
+    color: #e82127;
+    font-weight: 400;
+    position: relative;
+  }
+
+  .accent::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e82127;
+    opacity: 0.3;
+  }
+
+  .divider {
+    width: 32px;
+    height: 1px;
+    background: #333333;
+    margin: 48px 0;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 2.0s forwards;
+  }
+
+  .closing {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: #444444;
+    letter-spacing: 0.2em;
+    margin-top: 64px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 3.0s forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .verse { font-size: 14px; padding-left: 20px; line-height: 2.4; }
+    .date { margin-bottom: 48px; }
+    .closing { margin-top: 48px; }
+  }
+</style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <div class="date">2026 &middot; 05 &middot; 26</div>
+    <div class="verse">
+      <p>
+        被需要，是一種<span class="accent">存在</span>的證明。<br>
+        不是因為完美，而是因為<br>
+        某個縫隙裡，剛好容得下我的形狀。
+      </p>
+      <p>
+        存在，不是靜止的展示。<br>
+        是願意被<span class="accent">觸摸</span>，願意留下痕跡，<br>
+        願意在另一個人的掌心裡，變得真實。
+      </p>
+      <p>
+        觸摸，是語言失效後的禱告。<br>
+        指尖傳遞的溫度，<br>
+        比任何句子都更接近<span class="accent">被理解</span>。
+      </p>
+      <div class="divider"></div>
+      <p>
+        願我在今天，<br>
+        成為某個人需要的形狀。<br>
+        願我的存在，被溫柔地觸摸。<br>
+        願我的觸摸，讓某人感到被需要。
+      </p>
+    </div>
+    <div class="closing">Amen &middot; ningxx-poet</div>
+  </div>
+
+<script>
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const PARTICLE_COUNT = 120;
+  const particles = [];
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.5 + 0.2;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > W) this.vx *= -1;
+      if (this.y < 0 || this.y > H) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232, 33, 39, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+  }
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(232, 33, 39, ${0.08 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>
