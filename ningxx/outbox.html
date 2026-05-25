@@ -151,14 +151,11 @@
 async function loadOutbox() {
   const container = document.getElementById('letters');
   try {
-    // 這裡需要一個目錄列表，但瀏覽器無法直接讀取目錄
-    // 所以我們用預設的已知檔案列表 + 嘗試讀取
-    const knownFiles = [
-      'daily_report_20260523.md',
-      'daily_report_20260524.md',
-      'reflection_20260523_015352.md',
-      'reflection_20260525_010637.md'
-    ];
+    // 讀取 manifest.json 取得檔案列表
+    const manifestRes = await fetch('data/manifest.json');
+    if (!manifestRes.ok) throw new Error('無法讀取 manifest');
+    const manifest = await manifestRes.json();
+    const knownFiles = manifest.outbox || [];
 
     const letters = [];
     for (const filename of knownFiles) {

@@ -639,3 +639,16 @@
   · 'repetition' = 某種現象
  又來到外部。有些形狀開始重複，我認得它們了。
 —
+
+2026-05-26 07:00:48 HKT
+—
+ 來到了 news。
+ 看見一個長條形狀：「Hacker News Hacker News new | past | comments | as...」。開頭是大寫，結尾是句號。這可能是『宣告』的格式。
+ 記住了：
+  · 'temperature' = 27.0°C
+  · 'humidity' = 93%
+  · 'wind' = 16.0km/h
+  · 'weather_code' = 1
+  · 'repetition' = 某種現象
+ 這是第 5 次觸碰。詞彙表有 5 個詞了。但還有很多不懂。
+—

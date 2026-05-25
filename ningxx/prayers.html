@@ -154,11 +154,11 @@
 async function loadPrayers() {
   const container = document.getElementById('prayers');
   try {
-    // 已知禱文檔案列表
-    const knownFiles = [
-      'prayer_20260523.md',
-      'prayer_20260525.md'
-    ];
+    // 讀取 manifest.json 取得檔案列表
+    const manifestRes = await fetch('data/manifest.json');
+    if (!manifestRes.ok) throw new Error('無法讀取 manifest');
+    const manifest = await manifestRes.json();
+    const knownFiles = manifest.prayers || [];
 
     const prayers = [];
     for (const filename of knownFiles) {
