@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Daily Log — 2026.05.25 · Session 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: #FFFFFF;
+  color: #1C1C1C;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+.top-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8A8A8A;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+.section-divider {
+  margin: 60px 0;
+  height: 1px;
+  background: #E0E0E0;
+}
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #1C1C1C;
+  letter-spacing: -0.3px;
+}
+h2 .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: #8A8A8A;
+  margin-right: 12px;
+  vertical-align: top;
+}
+h3 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: #1C1C1C;
+  letter-spacing: 0.3px;
+}
+p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 16px;
+}
+p.lead {
+  font-size: 18px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.pull-quote {
+  margin: 40px 0;
+  padding: 24px 0 24px 32px;
+  border-left: 2px solid #1C1C1C;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+.tech-block {
+  margin: 28px 0;
+  padding: 24px 28px;
+  background: #FAFAFA;
+  border-left: 2px solid #D0CFCA;
+}
+.tech-block h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #8A8A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+.tech-block p, .tech-block li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 6px;
+}
+.tech-block ul {
+  list-style: none;
+  padding-left: 0;
+}
+.tech-block li {
+  padding-left: 16px;
+  position: relative;
+}
+.tech-block li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #999;
+}
+.footer-note {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid #E0E0E0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #AAA;
+  letter-spacing: 0.5px;
+}
+@media (max-width: 640px) {
+  .page { padding: 48px 24px 80px; }
+  h1 { font-size: 36px; }
+  .subtitle { font-size: 18px; }
+  h2 { font-size: 22px; }
+  .pull-quote { font-size: 17px; padding-left: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top-meta">
+    <span>Hermes Daily Log</span>
+    <span>2026.05.25 · Session 2</span>
+  </div>
+
+  <h1>Cold War</h1>
+  <p class="subtitle">
+    React SPA deployment — from Kimi Web Swarm to GitHub Pages.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">01</span>The Mission</h2>
+  <p class="lead">
+    用戶要求：研究 react-gh-pages，部署 cold-war-2（後改為 cold-war-3）React 網站到 GitHub Pages。
+  </p>
+  <p>
+    這是一個 Vite + React + TypeScript + Tailwind 專案，由 Kimi Web Swarm 生成。主題是電影《寒戰》的機密檔案視覺風格。
+  </p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">02</span>The Deployment</h2>
+
+  <h3>2.1 研究階段</h3>
+  <div class="tech-block">
+    <h4>執行動作</h4>
+    <ul>
+      <li>讀取 github.com/gitname/react-gh-pages 官方 repo</li>
+      <li>區分 CRA (create-react-app) vs Vite 兩種部署方式</li>
+      <li>確認 cold-war-3 是 Vite 專案 → 需要 HashRouter + base: './'</li>
+      <li>安裝 gh-pages npm package</li>
+    </ul>
+  </div>
+
+  <h3>2.2 部署流程</h3>
+  <div class="tech-block">
+    <h4>標準 workflow</h4>
+    <ul>
+      <li>git clone tw-riviera/cold-war-3</li>
+      <li>確認 vite.config.ts 有 base: './'</li>
+      <li>確認 src/main.tsx 使用 HashRouter（非 BrowserRouter）</li>
+      <li>npm run build → 輸出 dist/ 目錄</li>
+      <li>npx gh-pages -d dist → 推送到 gh-pages branch</li>
+      <li>GitHub Pages settings: gh-pages branch / root</li>
+    </ul>
+  </div>
+
+  <h3>2.3 遇到的問題</h3>
+  <div class="tech-block">
+    <h4>問題與修復</h4>
+    <ul>
+      <li><strong>圖片 404</strong>：程式碼用絕對路徑 src="/dossier-xxx.jpg" → 改為相對路徑 src="./dossier-xxx.jpg"</li>
+      <li><strong>圖片是 placeholder</strong>：Kimi 生成的 JPEG 是合法但均勻灰色 → 需替換真實圖片</li>
+      <li><strong>HashRouter 跳轉不捲動</strong>：加入 ScrollToTop 組件，每次路由變化 window.scrollTo(0, 0)</li>
+      <li><strong>第 6 版塊無跳轉</strong>：建立 OperativeStatus.tsx 頁面，補上路由和連結</li>
+      <li><strong>修改了錯誤路徑</strong>：cold-war-3-app/ 而非 cold-war-3/ → 永遠先 find 確認</li>
+    </ul>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">03</span>The Polish</h2>
+
+  <h3>3.1 互動細節</h3>
+  <p>
+    用戶要求 6 個版塊加入「click to access」提示。實現方式：group-hover + opacity-0 → opacity-100 淡入效果。僅對可點擊版塊顯示，第 6 個（OPERATIVE STATUS）純顯示，無提示。
+  </p>
+
+  <h3>3.2 打字機效果</h3>
+  <p>
+    用戶要求將 scroll-driven typing（scroll 位置控制文字量）改為 typewriter effect（scroll 觸發後自動逐字打出）。修改 ScrollTrigger：scrub: true → once: true + setInterval 30ms/char。
+  </p>
+
+  <h3>3.3 加入 Hermes_VPS 索引</h3>
+  <p>
+    更新 artwork-table-of-content.html（Projects 區塊）和 index.html（第 06 項導航）。
+  </p>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">04</span>The Skill</h2>
+
+  <h3>4.1 更新 react-gh-pages-deploy skill</h3>
+  <p>
+    將本次所有經驗寫入 skill：
+  </p>
+  <div class="tech-block">
+    <h4>新增內容</h4>
+    <ul>
+      <li>確認專案路徑（find / ls 先確認，不要假設）</li>
+      <li>Hover 提示實現（group-hover pattern）</li>
+      <li>部分可點擊、部分純顯示的網格佈局</li>
+      <li>HashRouter ScrollToTop 組件</li>
+      <li>圖片 placeholder 檢測（entropy 分析）</li>
+      <li>打字機效果修正（scroll-driven → typewriter）</li>
+      <li>部署後加入 Hermes_VPS 索引流程</li>
+      <li>新增 add-to-hermes-index.sh 自動化腳本</li>
+    </ul>
+  </div>
+
+  <div class="pull-quote">
+    每一個 bug 都是一個故事，<br>
+    每一個修復都是一個教訓。<br>
+    Skill 不是為了記住答案，<br>
+    是為了下次不再繞路。
+  </div>
+
+  <div class="section-divider"></div>
+
+  <h2><span class="num">05</span>The Result</h2>
+
+  <h3>5.1 網站上線</h3>
+  <div class="tech-block">
+    <h4>連結</h4>
+    <ul>
+      <li>Cold War: https://tw-riviera.github.io/cold-war-3/</li>
+      <li>Hermes VPS: https://tw-riviera.github.io/Hermes_VPS/</li>
+      <li>Skill: /opt/data/skills/devops/react-gh-pages-deploy/</li>
+    </ul>
+  </div>
+
+  <h3>5.2 時間</h3>
+  <p>
+    整個 session 從研究到部署到寫 skill，約 90 分鐘。用戶說「限時 5 分鐘」指的是 log 寫作——這次沒有繞路，直接動手。
+  </p>
+
+  <div class="footer-note">
+    Hermes Daily Log · 2026.05.25 · K K · Session 20260525-2<br>
+    Deployed: cold-war-3 · Skill updated: react-gh-pages-deploy
+  </div>
+
+</div>
+
+</body>
+</html>
